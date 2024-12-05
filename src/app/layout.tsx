@@ -61,12 +61,11 @@ export default function RootLayout({
           >
             <AppSidebar />
             <SidebarInset>
-              <header className="flex h-16 shrink-0 items-center gap-2 px-4">
+              <header className="flex h-16 shrink-0 items-center gap-2 px-4 sticky top-0">
                 <SidebarTrigger className="-ml-1" />
                 <Separator orientation="vertical" className="mr-2 h-4" />
                 <ModeToggle />
                 <Separator orientation="vertical" className="mr-2 h-4" />
-
                 <Breadcrumb>
                   <BreadcrumbList>
                     <BreadcrumbItem className="hidden md:block">
@@ -81,7 +80,7 @@ export default function RootLayout({
                   </BreadcrumbList>
                 </Breadcrumb>
               </header>
-              <main>{children}</main>
+              <main className="px-2">{children}</main>
             </SidebarInset>
           </SidebarProvider>
         </ThemeProvider>
