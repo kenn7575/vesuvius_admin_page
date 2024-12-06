@@ -12,8 +12,11 @@ export async function authFetch(
   headers.set("Authorization", `Bearer ${token}`);
 
   options.headers = headers;
+  const backendURL = process.env.BACKEND_URL || "http://localhost:5005";
 
-  let response = await fetch(url, options);
+  const _url = url.startsWith("http") ? url : `${backendURL}${url}`;
+
+  let response = await fetch(_url, options);
 
   if (response.status === 401) {
     const newToken = await refreshToken();
