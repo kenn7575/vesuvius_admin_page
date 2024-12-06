@@ -1,6 +1,4 @@
 "use client";
-
-import { useEffect, useState } from "react";
 import { addDays, format, subDays } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { DateRange } from "react-day-picker";
@@ -19,8 +17,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
-import { useDateRange } from "./DateRangeProvider";
 import {
   datesOfLastQuarter,
   datesOfLastYear,
@@ -29,11 +25,32 @@ import {
   daysSinceMonthStart,
   daysSinceWeekStart,
 } from "@/lib/dateUtils";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 export function DatePickerWithRange({
   className,
 }: React.HTMLAttributes<HTMLDivElement>) {
-  const { updateDateRange, dateRange } = useDateRange();
+  // const { updateDateRange, dateRange } = useDateRange();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
+  function handleSearch(dates: DateRange) {
+    const params = new URLSearchParams(searchParams);
+    if (dates.from && dates.to) {
+      params.set("from", dates.from.toISOString());
+      params.set("to", dates.to.toISOString());
+    } else {
+      params.delete("from");
+      params.delete("to");
+    }
+    replace(`${pathname}?${params.toString()}`);
+  }
+
+  let dateRange = {
+    from: new Date(searchParams.get("from") || subDays(new Date(), 30)),
+    to: new Date(searchParams.get("to") || new Date()),
+  };
 
   return (
     <div className={cn("grid gap-2", className)}>
@@ -65,11 +82,10 @@ export function DatePickerWithRange({
         <PopoverContent className="w-auto p-0" align="start">
           <Select
             onValueChange={(value) => {
+              console.log("🚀 ~ value:", value);
               const dates = JSON.parse(value) as { from: Date; to: Date };
-              updateDateRange({
-                from: dates.from,
-                to: dates.to,
-              });
+              console.log("🚀 ~ dates:", dates);
+              handleSearch(dates);
             }}
           >
             <SelectTrigger>
@@ -136,7 +152,7 @@ export function DatePickerWithRange({
           </Select>
           <Button
             onClick={() => {
-              updateDateRange({ from: new Date(), to: new Date() });
+              handleSearch({ from: new Date(), to: new Date() });
             }}
           >
             Nulstil
@@ -145,11 +161,11 @@ export function DatePickerWithRange({
             weekStartsOn={1}
             initialFocus
             mode="range"
-            defaultMonth={dateRange?.from}
+            // defaultMonth={dateRange?.from}
             selected={dateRange}
             onSelect={(e) => {
-              if (e?.from && e?.to) {
-                updateDateRange(e);
+              if (e) {
+                handleSearch(e);
               }
             }}
             numberOfMonths={2}

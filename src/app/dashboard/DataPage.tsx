@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 import { Activity, ArrowUpRight, CreditCard } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -23,16 +22,13 @@ import { Revenue } from "./cards/Revenue";
 import { OrderCount } from "./cards/OrderCount";
 import { DatePickerWithRange } from "./RangePicker";
 
-import { useDateRange } from "./DateRangeProvider";
-
-export default function DataPage() {
-  const { updateDateRange, dateRange } = useDateRange();
+export default function DataPage({ from, to }: { from: string; to: string }) {
+  console.log("🚀 ~ DataPage ~ { from, to }:", { from, to });
 
   return (
-    <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-      <DatePickerWithRange />
+    <>
       <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-        <Revenue />
+        <Revenue from={from} to={to} />
         <OrderCount />
         <Card x-chunk="A card showing the total sales and the percentage difference from last month.">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -265,6 +261,6 @@ export default function DataPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </>
   );
 }
