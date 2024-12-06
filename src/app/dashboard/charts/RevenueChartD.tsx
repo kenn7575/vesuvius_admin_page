@@ -35,7 +35,7 @@ export function RevenueChart({ chartData }: { chartData: RevenueChartType }) {
           tickMargin={8}
           tickFormatter={(value) => value}
         />
-        <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+        <ChartTooltip cursor={true} content={<ChartTooltipContent />} />
         <defs>
           <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
             <stop

@@ -46,27 +46,27 @@ const data = {
       items: [
         {
           title: "Menu genstande",
-          url: "/cms/menu-items",
+          url: "/menu-items",
           icon: <Salad size={20} strokeWidth={2.5} />,
         },
         {
           title: "Menu kategorier",
-          url: "/cms/menu-item-types",
+          url: "/menu-item-types",
           icon: <BookOpen size={20} strokeWidth={2.5} />,
         },
         {
           title: "Åbningstider",
-          url: "/cms/opening-hours",
+          url: "/opening-hours",
           icon: <Clock8 size={20} strokeWidth={2.5} />,
         },
         {
           title: "Brugerroller",
-          url: "/cms/user-roles",
+          url: "/user-roles",
           icon: <UserRoundCog size={20} strokeWidth={2.5} />,
         },
         {
           title: "Brugere",
-          url: "/cms/users",
+          url: "/users",
           icon: <UserRound size={20} strokeWidth={2.5} />,
         },
       ],
