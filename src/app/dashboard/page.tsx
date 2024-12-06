@@ -1,6 +1,5 @@
 export const dynamic = "force-dynamic";
 
-import { DateRangeProvider } from "./DateRangeProvider";
 import DataPage from "./DataPage";
 import { Suspense } from "react";
 import { subDays } from "date-fns";
@@ -23,7 +22,10 @@ export default async function Page(props: {
   const toFormatted = to?.toISOString().split("T")[0];
   if (!from || !to) return;
   return (
-    <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+    <div
+      suppressHydrationWarning={true}
+      className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8"
+    >
       <DatePickerWithRange />
       <Suspense key={from.toString() + to.toString()} fallback={<p>loading</p>}>
         <DataPage from={fromFormatted} to={toFormatted} />

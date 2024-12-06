@@ -53,7 +53,10 @@ export function DatePickerWithRange({
   };
 
   return (
-    <div className={cn("grid gap-2", className)}>
+    <div
+      suppressHydrationWarning={true}
+      className={cn("grid gap-2", className)}
+    >
       <Popover>
         <PopoverTrigger asChild>
           <Button

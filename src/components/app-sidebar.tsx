@@ -84,8 +84,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <a href="#">
                 <Avatar>
                   <AvatarImage
-                    src="https://github.com/shadcn.png"
-                    alt="@shadcn"
+                    src="/anders.webp"
+                    alt="Anders And"
+                    width={40}
+                    height={40}
+                    className="aspect-square object-cover"
                   />
                   <AvatarFallback>AA</AvatarFallback>
                 </Avatar>
