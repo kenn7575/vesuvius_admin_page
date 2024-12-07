@@ -9,15 +9,7 @@ import {
 import { cookies } from "next/headers";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
+
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -37,32 +29,8 @@ import {
 } from "@/components/ui/table";
 import Image from "next/image";
 import { MoreHorizontal } from "lucide-react";
-
-interface MenuItemData {
-  items: MenuItem[];
-  meta: MetaData;
-}
-interface MetaData {
-  total: number;
-  page: number;
-  perPage: number;
-  pageCount: number;
-}
-interface MenuItem {
-  id: number;
-  name: string;
-  description: string;
-  type_id: number;
-  created_at: string;
-  updated_at: string;
-  is_active: boolean;
-  price_in_oere: number;
-  comment: string;
-  is_lacking_ingredient: boolean;
-  is_sold_out: boolean;
-  image_path: string;
-  type: string;
-}
+import { MenuItem, MenuItemData, MenuItemMetaData } from "./types";
+import { TablePagination } from "./TablePagination";
 
 export async function MenuItemTable({
   filter,
@@ -74,7 +42,7 @@ export async function MenuItemTable({
   perPage?: number;
 }) {
   let menuItems: MenuItem[] = [];
-  let metaData: MetaData | undefined;
+  let metaData: MenuItemMetaData | undefined;
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken");
 
@@ -243,56 +211,7 @@ export async function MenuItemTable({
             products
           </div>
         )}
-        {/* <Pagination className="flex-grow">
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious href="#" />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">1</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#" isActive>
-                2
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">3</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext href="#" />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination> */}
-        {metaData && (
-          <Pagination className="flex-grow">
-            <PaginationContent>
-              {metaData.page > 1 && (
-                <PaginationItem>
-                  <PaginationPrevious href={`?page=${metaData.page - 1}`} />
-                </PaginationItem>
-              )}
-              {Array.from({ length: metaData.pageCount }, (_, i) => (
-                <PaginationItem key={i}>
-                  <PaginationLink
-                    href={`?page=${i + 1}`}
-                    isActive={metaData.page === i + 1}
-                  >
-                    {i + 1}
-                  </PaginationLink>
-                </PaginationItem>
-              ))}
-              {metaData.page < metaData.pageCount && (
-                <PaginationItem>
-                  <PaginationNext href={`?page=${metaData.page + 1}`} />
-                </PaginationItem>
-              )}
-            </PaginationContent>
-          </Pagination>
-        )}
+        {metaData && <TablePagination metaData={metaData} />}
         <div className="min-w-24" />
       </CardFooter>
     </Card>

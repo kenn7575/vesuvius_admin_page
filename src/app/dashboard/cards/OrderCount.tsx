@@ -16,7 +16,7 @@ export async function OrderCount({ from, to }: { from: string; to: string }) {
     }
   );
   if (res.ok) {
-    const data = await res.json();
+    const data = (await res.json()) as number;
     console.log("🚀 ~ Order count ~ data:", data);
     revenue = data;
   }

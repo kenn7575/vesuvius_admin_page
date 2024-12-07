@@ -7,9 +7,13 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { RevenueChart as RevenueChartType } from "./RevenueChartContainer";
+import { RevenueChartDataWithMeta } from "../types";
 
-export function RevenueChart({ chartData }: { chartData: RevenueChartType }) {
+export function RevenueChart({
+  chartData,
+}: {
+  chartData: RevenueChartDataWithMeta;
+}) {
   const chartConfig = {
     revenue: {
       label: "revenue",

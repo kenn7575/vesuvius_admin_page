@@ -11,15 +11,7 @@ import {
 import { cookies } from "next/headers";
 import { ArrowUpRight } from "lucide-react";
 import { RevenueChart } from "./RevenueChartD";
-
-interface RevenueChartData {
-  period: string;
-  revenue: number;
-}
-export interface RevenueChart {
-  period_type: "day" | "week" | "month" | "year";
-  data: RevenueChartData[];
-}
+import { RevenueChartDataWithMeta } from "../types";
 
 export async function RevenueChartContainer({
   from,
@@ -28,7 +20,7 @@ export async function RevenueChartContainer({
   from: string;
   to: string;
 }) {
-  let chartData: RevenueChart | undefined;
+  let chartData: RevenueChartDataWithMeta | undefined;
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken");
 

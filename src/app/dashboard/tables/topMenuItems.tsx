@@ -12,15 +12,10 @@ import {
 } from "@/components/ui/card";
 import { cookies } from "next/headers";
 import Image from "next/image";
-interface TopMenuItem {
-  menuItemId: number;
-  name: string;
-  count: number;
-  image_path: string;
-}
+import { TopMenuItemDataPoint } from "../types";
 
 export async function TopMenuItems({ from, to }: { from: string; to: string }) {
-  let menuItems: TopMenuItem[] | undefined;
+  let menuItems: TopMenuItemDataPoint[] | undefined;
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken");
 

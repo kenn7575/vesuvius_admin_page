@@ -22,7 +22,7 @@ export async function OrderItemCount({
     }
   );
   if (res.ok) {
-    const data = await res.json();
+    const data = (await res.json()) as number;
     console.log("🚀 ~ Order item count ~ data:", data);
     totalItemCount = data;
   }

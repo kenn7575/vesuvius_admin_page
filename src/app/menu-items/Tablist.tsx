@@ -29,7 +29,7 @@ export function Tablist({}) {
         Alle
       </TabsTrigger>
       <TabsTrigger
-        onClick={() => {
+        onClick={(e) => {
           handleSearch("active");
         }}
         value="active"

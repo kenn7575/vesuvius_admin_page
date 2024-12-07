@@ -16,7 +16,7 @@ export async function Revenue({ from, to }: { from: string; to: string }) {
     }
   );
   if (res.ok) {
-    const data = await res.json();
+    const data = (await res.json()) as number;
     console.log("🚀 ~ Revenue ~ data:", data);
     revenue = data;
   }
