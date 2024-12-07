@@ -49,16 +49,7 @@ export default async function Dashboard(props: {
     <Tabs defaultValue="all" className="pr-2 mb-2 ">
       <div className="flex items-center sticky top-16 bg-background z-40 pb-2">
         <Tablist />
-        <div className="border w-fit  py-1 px-4 rounded-md flex gap-8 ml-2">
-          <div className="flex gap-2 items-center">
-            <div className="w-3 h-3 rounded-full bg-primary border-primary-foreground border" />
-            <p>Aktiv</p>
-          </div>
-          <div className="flex gap-2 items-center">
-            <div className="w-3 h-3 rounded-full bg-destructive" />
-            <p>Ikke aktiv</p>
-          </div>
-        </div>
+
         <div className="ml-auto flex items-center gap-2">
           <Button size="sm" variant="outline" className="h-7 gap-1">
             <File className="h-3.5 w-3.5" />
