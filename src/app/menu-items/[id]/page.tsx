@@ -15,6 +15,8 @@ import { Label } from "@/components/ui/label";
 import { MenuItemDetails, MenuItemType } from "../types";
 import { cookies } from "next/headers";
 import { UpdateMenuActiveButton } from "./UpdateIsActiveButton";
+import { toast } from "sonner";
+import { Toast } from "./Toast";
 
 export default async function Dashboard({
   params,
@@ -25,6 +27,7 @@ export default async function Dashboard({
 
   const cookieStore = await cookies();
   const id = (await params).id;
+
   const accessToken = cookieStore.get("accessToken");
 
   const menuItemRes = await fetch(
@@ -44,6 +47,7 @@ export default async function Dashboard({
 
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 mb-2">
+      {menuItem?.menu_item && <Toast name={menuItem?.menu_item?.name} />}
       <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
         <div className="flex items-center gap-4">
           <BackButton />
@@ -183,7 +187,9 @@ export default async function Dashboard({
                     alt="Product image"
                     className="aspect-square w-full rounded-md object-cover"
                     height="300"
-                    src={`/img/${menuItem?.menu_item?.image_path}`}
+                    src={`/img/${
+                      menuItem?.menu_item?.image_path || "placeholder.svg"
+                    }`}
                     width="300"
                   />
                 </div>

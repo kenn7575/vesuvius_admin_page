@@ -5,6 +5,7 @@ import "./globals.css";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Separator } from "@/components/ui/separator";
+import { Toaster } from "@/components/ui/sonner";
 import {
   SidebarInset,
   SidebarProvider,
@@ -60,6 +61,7 @@ export default function RootLayout({
                 <DynamicBreadcrumbs />
               </header>
               <main className="px-2 ">{children}</main>
+              <Toaster />
             </SidebarInset>
           </SidebarProvider>
         </ThemeProvider>

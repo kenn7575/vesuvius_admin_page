@@ -1,6 +1,6 @@
 import { Tablist } from "./Tablist";
 export const dynamic = "force-dynamic";
-
+import Link from "next/link";
 import Image from "next/image";
 import { File, ListFilter, MoreHorizontal, PlusCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -57,11 +57,13 @@ export default async function Dashboard(props: {
               Export
             </span>
           </Button>
-          <Button size="sm" className="h-7 gap-1">
-            <PlusCircle className="h-3.5 w-3.5" />
-            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-              Add Product
-            </span>
+          <Button size="sm" className="h-7 gap-1" asChild>
+            <Link href="/menu-items/opret">
+              <PlusCircle className="h-3.5 w-3.5" />
+              <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                Add Product
+              </span>
+            </Link>
           </Button>
         </div>
       </div>

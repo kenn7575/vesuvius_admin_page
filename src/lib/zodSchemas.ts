@@ -18,7 +18,7 @@ export const numberSchema = z
   .refine((value) => value >= 0, {
     message: "Talet skal være positivt",
   });
-export const formSchema = z.object({
+export const menuItemSchema = z.object({
   name: z
     .string()
     .min(2, {

@@ -1,5 +1,5 @@
 "use client";
-import { BackButton } from "../BackButton";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Switch } from "@/components/ui/switch";
@@ -22,8 +22,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { MenuItemDetails, MenuItemType } from "../../types";
-import { LoaderCircle, Upload } from "lucide-react";
+import { MenuItemType } from "../types";
+import { ChevronLeft, LoaderCircle, Upload } from "lucide-react";
 import { useFormStatus } from "react-dom";
 import {
   Form,
@@ -37,53 +37,47 @@ import {
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { menuItemSchema } from "../../../../lib/zodSchemas";
-import { useRouter } from "next/navigation";
-import { revalidatePath } from "next/cache";
 
-export function MenuItemEditForm({
-  initialMenuItem,
+import { useRouter } from "next/navigation";
+import { menuItemSchema } from "@/lib/zodSchemas";
+
+export function CreateMenuItemForm({
   initialMenuItemTypeList,
   token,
-  id,
 }: {
-  initialMenuItem: MenuItemDetails | undefined;
   initialMenuItemTypeList: MenuItemType[] | undefined;
-  id: string;
   token: string | undefined;
 }) {
   const router = useRouter();
   const form = useForm<z.infer<typeof menuItemSchema>>({
     resolver: zodResolver(menuItemSchema),
     defaultValues: {
-      name: initialMenuItem?.menu_item?.name || "",
-      description: initialMenuItem?.menu_item?.description || "",
-      price: initialMenuItem?.menu_item?.price_in_oere
-        ? initialMenuItem?.menu_item?.price_in_oere / 100
-        : 0,
-      category: initialMenuItem?.menu_item_type?.id.toString() || "",
-      is_active: initialMenuItem?.menu_item?.is_active || false,
-      is_sold_out: initialMenuItem?.menu_item?.is_sold_out || false,
-      is_lacking_ingredient:
-        initialMenuItem?.menu_item?.is_lacking_ingredient || false,
-      comment: initialMenuItem?.menu_item?.comment || "",
+      name: "",
+      description: "",
+
+      category: "",
+      is_active: true,
+      is_sold_out: false,
+      is_lacking_ingredient: false,
+      comment: "",
     },
   });
   const { pending } = useFormStatus();
 
   async function onSubmit(values: z.infer<typeof menuItemSchema>) {
     console.log(values);
-    const res = await fetch(`http://localhost:5005/menu_items/admin/${id}`, {
+    const res = await fetch(`http://localhost:5005/menu_items`, {
       headers: {
         authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(values),
-      method: "PUT",
+      method: "POST",
     });
     console.log("🚀 ~ onSubmit ~ res", res);
     if (res.ok) {
-      router.push(`/menu-items/${id}?updated=true`);
+      const { id } = await res.json();
+      router.push(`/menu-items/${id}?created=true`);
     }
   }
 
@@ -94,19 +88,23 @@ export function MenuItemEditForm({
         className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4"
       >
         <div className="flex items-center gap-4">
-          <BackButton />
+          <Button variant="outline" size="icon" className="h-7 w-7" asChild>
+            <Link href="/menu-items">
+              <ChevronLeft className="h-4 w-4" />
+              <span className="sr-only">Back</span>
+            </Link>
+          </Button>
           <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
-            Rediger {initialMenuItem?.menu_item?.name}
+            Opret ny menu genstand
           </h1>
-          <h2 className="text-xl">ID: {initialMenuItem?.menu_item?.id}</h2>
 
           <div className="hidden items-center gap-2 md:ml-auto md:flex">
             <Button variant="outline" size="sm" asChild>
-              <Link href={`/menu-items/${id}`}>Discard</Link>
+              <Link href={`/menu-items`}>Annuller</Link>
             </Button>
             <Button size="sm" type="submit">
               {pending && <LoaderCircle className="animate-spin" />}
-              Save Product
+              Opret
             </Button>
           </div>
         </div>
@@ -318,25 +316,9 @@ export function MenuItemEditForm({
                     alt="Product image"
                     className="aspect-square w-full rounded-md object-cover"
                     height="300"
-                    src={`/img/${initialMenuItem?.menu_item?.image_path}`}
+                    src={`/img/placeholder.svg`}
                     width="300"
                   />
-                  <div className="grid grid-cols-3 gap-2">
-                    <button
-                      onClick={() => {
-                        const inputElement = document.createElement("input");
-                        inputElement.type = "file";
-                        inputElement.accept = "image/*";
-                        inputElement.multiple = false;
-                        inputElement.click();
-                      }}
-                      type="button"
-                      className="flex aspect-square w-full items-center cursor-pointer justify-center rounded-md border border-dashed"
-                    >
-                      <Upload className="h-4 w-4 text-muted-foreground" />
-                      <span className="sr-only">Upload</span>
-                    </button>
-                  </div>
                 </div>
               </CardContent>
             </Card>
