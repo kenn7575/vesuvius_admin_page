@@ -35,11 +35,17 @@ export function DatePickerWithRange({
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  function handleSearch(dates: DateRange) {
+  function handleSearch(dates: {
+    from: Date | string | undefined;
+    to: Date | string | undefined;
+  }) {
     const params = new URLSearchParams(searchParams);
     if (dates.from && dates.to) {
-      params.set("from", dates.from.toISOString());
-      params.set("to", dates.to.toISOString());
+      const from =
+        typeof dates.from === "string" ? new Date(dates.from) : dates.from;
+      const to = typeof dates.to === "string" ? new Date(dates.to) : dates.to;
+      params.set("from", from.toISOString());
+      params.set("to", to.toISOString());
     } else {
       params.delete("from");
       params.delete("to");
@@ -86,7 +92,7 @@ export function DatePickerWithRange({
           <Select
             onValueChange={(value) => {
               console.log("🚀 ~ value:", value);
-              const dates = JSON.parse(value) as { from: Date; to: Date };
+              const dates = JSON.parse(value);
               console.log("🚀 ~ dates:", dates);
               handleSearch(dates);
             }}
@@ -168,7 +174,7 @@ export function DatePickerWithRange({
             selected={dateRange}
             onSelect={(e) => {
               if (e) {
-                handleSearch(e);
+                handleSearch({ from: e.from, to: e.to });
               }
             }}
             numberOfMonths={2}

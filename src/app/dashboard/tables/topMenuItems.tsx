@@ -41,7 +41,7 @@ export async function TopMenuItems({ from, to }: { from: string; to: string }) {
       <CardContent className="grid gap-8">
         {menuItems &&
           menuItems.map((item, index) => (
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4" key={item.menuItemId}>
               <Image
                 className="hidden h-9 w-9 sm:flex"
                 src={"/img/" + item.image_path}

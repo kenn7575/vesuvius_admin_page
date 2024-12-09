@@ -107,8 +107,12 @@ export async function MenuItemTable({
 
           <TableBody>
             {menuItems.length > 0 &&
-              menuItems.map((item, index) => (
-                <TableBodyRow filter={filter} item={item}></TableBodyRow>
+              menuItems.map((item) => (
+                <TableBodyRow
+                  key={item.id}
+                  filter={filter}
+                  item={item}
+                ></TableBodyRow>
               ))}
           </TableBody>
         </Table>
