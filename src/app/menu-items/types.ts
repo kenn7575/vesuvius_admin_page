@@ -23,3 +23,14 @@ export interface MenuItem {
   image_path: string;
   type: string;
 }
+export interface MenuItemDetails {
+  menu_item_type: MenuItemType;
+  menu_item: Omit<MenuItem, "type">;
+}
+export interface MenuItemType {
+  id: number;
+  name: string;
+  created_at: string;
+  updated_at: string;
+  is_food: boolean;
+}

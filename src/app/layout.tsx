@@ -1,18 +1,9 @@
+import { DynamicBreadcrumbs } from "../components/Breadcrumps";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Image from "next/image";
-import Link from "next/link";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
@@ -66,19 +57,7 @@ export default function RootLayout({
                 <Separator orientation="vertical" className="mr-2 h-4" />
                 <ModeToggle />
                 <Separator orientation="vertical" className="mr-2 h-4" />
-                <Breadcrumb>
-                  <BreadcrumbList>
-                    <BreadcrumbItem className="hidden md:block">
-                      <BreadcrumbLink href="#">
-                        Building Your Application
-                      </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator className="hidden md:block" />
-                    <BreadcrumbItem>
-                      <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                    </BreadcrumbItem>
-                  </BreadcrumbList>
-                </Breadcrumb>
+                <DynamicBreadcrumbs />
               </header>
               <main className="px-2 ">{children}</main>
             </SidebarInset>
