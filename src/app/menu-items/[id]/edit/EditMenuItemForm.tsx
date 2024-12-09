@@ -197,8 +197,11 @@ export function MenuItemEditForm({
                             defaultValue={field.value}
                           >
                             <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select a verified email to display" />
+                              <SelectTrigger aria-label={`Vælg en kategori`}>
+                                <SelectValue
+                                  aria-label={`Vælg en kategori`}
+                                  placeholder="Select a verified email to display"
+                                />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
@@ -206,6 +209,7 @@ export function MenuItemEditForm({
                                 <SelectItem
                                   key={item.id}
                                   value={item.id.toString()}
+                                  aria-label={`Vælg ${item.name}`}
                                 >
                                   {item.name}
                                 </SelectItem>
@@ -236,6 +240,7 @@ export function MenuItemEditForm({
                           <FormLabel> Mangler ingredienser</FormLabel>
                           <FormControl>
                             <Switch
+                              aria-label={`Mangler ingredienser`}
                               className="scale-150 translate-x-2"
                               checked={field.value}
                               onCheckedChange={field.onChange}
@@ -289,6 +294,7 @@ export function MenuItemEditForm({
                           <FormLabel>Aktiv</FormLabel>
                           <FormControl>
                             <Switch
+                              aria-label={`Aktiv`}
                               className="scale-150 translate-x-2"
                               checked={field.value}
                               onCheckedChange={field.onChange}
@@ -358,6 +364,7 @@ export function MenuItemEditForm({
                           <FormLabel>Udsolgt</FormLabel>
                           <FormControl>
                             <Switch
+                              aria-label={`Udsolgt`}
                               className="scale-150 translate-x-2"
                               checked={field.value}
                               onCheckedChange={field.onChange}

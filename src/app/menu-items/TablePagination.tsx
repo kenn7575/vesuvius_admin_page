@@ -39,6 +39,7 @@ export function TablePagination({ metaData }: { metaData: MenuItemMetaData }) {
         {metaData.page > 1 && (
           <PaginationItem>
             <PaginationPrevious
+              aria-label="Previous page"
               onClick={() => handlePageChange(metaData.page - 1)}
             />
           </PaginationItem>
@@ -46,6 +47,7 @@ export function TablePagination({ metaData }: { metaData: MenuItemMetaData }) {
         {Array.from({ length: metaData.pageCount }, (_, i) => (
           <PaginationItem key={i}>
             <PaginationLink
+              aria-label={`Go to page ${i + 1}`}
               onClick={() => handlePageChange(i + 1)}
               isActive={metaData.page === i + 1}
             >
@@ -56,6 +58,7 @@ export function TablePagination({ metaData }: { metaData: MenuItemMetaData }) {
         {metaData.page < metaData.pageCount && (
           <PaginationItem>
             <PaginationNext
+              aria-label="Next page"
               onClick={() => handlePageChange(metaData.page + 1)}
             />
           </PaginationItem>
