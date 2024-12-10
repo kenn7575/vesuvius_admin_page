@@ -1,6 +1,7 @@
 import { MenuItemDetails, MenuItemType } from "../../types";
 import { cookies } from "next/headers";
 import { MenuItemEditForm } from "./EditMenuItemForm";
+import { config } from "@/app/config";
 
 export default async function Dashboard({
   params,
@@ -14,7 +15,7 @@ export default async function Dashboard({
   const accessToken = cookieStore.get("accessToken");
 
   const menuItemRes = await fetch(
-    `http://localhost:5005/menu_items/admin/${id}`,
+    `${config.backendUrl}/menu_items/admin/${id}`,
     {
       headers: {
         authorization: `Bearer ${accessToken?.value}`,
@@ -27,7 +28,7 @@ export default async function Dashboard({
     menuItem = data;
   }
 
-  const menuItemTypeRes = await fetch(`http://localhost:5005/menu_item_types`);
+  const menuItemTypeRes = await fetch(`${config.backendUrl}/menu_item_types`);
   if (menuItemTypeRes.ok) {
     const data = (await menuItemTypeRes.json()) as MenuItemType[];
     console.log("🚀 ~ data:", data);

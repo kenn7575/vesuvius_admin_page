@@ -13,6 +13,7 @@ import {
 import { cookies } from "next/headers";
 import Image from "next/image";
 import { TopMenuItemDataPoint } from "../types";
+import { config } from "@/app/config";
 
 export async function TopMenuItems({ from, to }: { from: string; to: string }) {
   let menuItems: TopMenuItemDataPoint[] | undefined;
@@ -20,7 +21,7 @@ export async function TopMenuItems({ from, to }: { from: string; to: string }) {
   const accessToken = cookieStore.get("accessToken");
 
   const res = await fetch(
-    `http://localhost:5005/analytics/top_menu_items?from=${from}&to=${to}`,
+    `${config.backendUrl}/analytics/top_menu_items?from=${from}&to=${to}`,
     {
       headers: {
         authorization: `Bearer ${accessToken?.value}`,

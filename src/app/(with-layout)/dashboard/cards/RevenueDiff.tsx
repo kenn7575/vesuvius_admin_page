@@ -1,3 +1,4 @@
+import { config } from "@/app/config";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign } from "lucide-react";
 import { cookies } from "next/headers";
@@ -9,7 +10,7 @@ export async function RevenueDiff({ from, to }: { from: string; to: string }) {
   const accessToken = cookieStore.get("accessToken");
 
   const res = await fetch(
-    `http://localhost:5005/analytics/revenue_diff?from=${from}&to=${to}`,
+    `${config.backendUrl}/analytics/revenue_diff?from=${from}&to=${to}`,
     {
       headers: {
         authorization: `Bearer ${accessToken?.value}`,

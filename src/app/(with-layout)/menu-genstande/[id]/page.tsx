@@ -17,6 +17,7 @@ import { cookies } from "next/headers";
 import { UpdateMenuActiveButton } from "./UpdateIsActiveButton";
 import { toast } from "sonner";
 import { Toast } from "./Toast";
+import { config } from "@/app/config";
 
 export default async function Dashboard({
   params,
@@ -31,7 +32,7 @@ export default async function Dashboard({
   const accessToken = cookieStore.get("accessToken");
 
   const menuItemRes = await fetch(
-    `http://localhost:5005/menu_items/admin/${id}`,
+    `${config.backendUrl}/menu_items/admin/${id}`,
     {
       headers: {
         authorization: `Bearer ${accessToken?.value}`,
@@ -67,7 +68,7 @@ export default async function Dashboard({
             ></UpdateMenuActiveButton>
 
             <Button asChild size="sm">
-              <Link href={`/menu-items/${id}/edit`}>Rediger</Link>
+              <Link href={`/menu-genstande/${id}/edit`}>Rediger</Link>
             </Button>
           </div>
         </div>

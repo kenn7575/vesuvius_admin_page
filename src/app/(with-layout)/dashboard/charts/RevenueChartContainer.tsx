@@ -12,6 +12,7 @@ import { cookies } from "next/headers";
 import { ArrowUpRight } from "lucide-react";
 import { RevenueChart } from "./RevenueChartD";
 import { RevenueChartDataWithMeta } from "../types";
+import { config } from "@/app/config";
 
 export async function RevenueChartContainer({
   from,
@@ -25,7 +26,7 @@ export async function RevenueChartContainer({
   const accessToken = cookieStore.get("accessToken");
 
   const res = await fetch(
-    `http://localhost:5005/analytics/revenue_chart?from=${from}&to=${to}`,
+    `${config.backendUrl}/analytics/revenue_chart?from=${from}&to=${to}`,
     {
       headers: {
         authorization: `Bearer ${accessToken?.value}`,

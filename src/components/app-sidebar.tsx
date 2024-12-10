@@ -46,7 +46,7 @@ const data = {
       items: [
         {
           title: "Menu genstande",
-          url: "/menu-items",
+          url: "/menu-genstande",
           icon: <Salad size={20} strokeWidth={2.5} />,
         },
         {

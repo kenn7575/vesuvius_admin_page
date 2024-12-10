@@ -36,7 +36,7 @@ export function TableBodyRow({
     <TableRow
       className="cursor-pointer"
       onClick={() => {
-        router.push(`/menu-items/${item.id}`);
+        router.push(`/menu-genstande/${item.id}`);
       }}
     >
       <TableCell>
@@ -113,7 +113,7 @@ export function TableBodyRow({
             <DropdownMenuItem asChild>
               <Link
                 onClick={(e) => e.stopPropagation()}
-                href={`/menu-items/${item.id}/edit`}
+                href={`/menu-genstande/${item.id}/edit`}
               >
                 Edit
               </Link>

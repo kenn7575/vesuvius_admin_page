@@ -37,9 +37,10 @@ import {
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { menuItemSchema } from "../../../../lib/zodSchemas";
+import { menuItemSchema } from "../../../../../lib/zodSchemas";
 import { useRouter } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { config } from "@/app/config";
 
 export function MenuItemEditForm({
   initialMenuItem,
@@ -73,7 +74,7 @@ export function MenuItemEditForm({
 
   async function onSubmit(values: z.infer<typeof menuItemSchema>) {
     console.log(values);
-    const res = await fetch(`http://localhost:5005/menu_items/admin/${id}`, {
+    const res = await fetch(`${config.backendUrl}/menu_items/admin/${id}`, {
       headers: {
         authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -83,7 +84,7 @@ export function MenuItemEditForm({
     });
     console.log("🚀 ~ onSubmit ~ res", res);
     if (res.ok) {
-      router.push(`/menu-items/${id}?updated=true`);
+      router.push(`/menu-genstande/${id}?updated=true`);
     }
   }
 
@@ -102,7 +103,7 @@ export function MenuItemEditForm({
 
           <div className="hidden items-center gap-2 md:ml-auto md:flex">
             <Button variant="outline" size="sm" asChild>
-              <Link href={`/menu-items/${id}`}>Discard</Link>
+              <Link href={`/menu-genstande/${id}`}>Discard</Link>
             </Button>
             <Button size="sm" type="submit">
               {pending && <LoaderCircle className="animate-spin" />}

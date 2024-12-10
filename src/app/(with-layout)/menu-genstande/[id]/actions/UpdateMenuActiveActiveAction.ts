@@ -1,13 +1,14 @@
 "use server";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
+import { config } from "@/app/config";
 
 export async function updateMenuItemStatus(id: string, newStatus: boolean) {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken");
   try {
     // Example external API call (replace with your actual API endpoint)
-    let url = `http://localhost:5005/menu_items/${id}/`;
+    let url = `${config.backendUrl}/menu_items/${id}/`;
     newStatus ? (url += "activate") : (url += "deactivate");
     let mothod = newStatus ? "PATCH" : "DELETE";
 

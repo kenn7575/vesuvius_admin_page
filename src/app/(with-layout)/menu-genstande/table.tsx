@@ -33,6 +33,7 @@ import { MoreHorizontal } from "lucide-react";
 import { MenuItem, MenuItemData, MenuItemMetaData } from "./types";
 import { TablePagination } from "./TablePagination";
 import Link from "next/link";
+import { config } from "../../config";
 
 export async function MenuItemTable({
   filter,
@@ -49,7 +50,9 @@ export async function MenuItemTable({
   const accessToken = cookieStore.get("accessToken");
 
   const res = await fetch(
-    `http://localhost:5005/menu_items/admin?filter=${filter?.toLocaleLowerCase()}&page=${page}&perPage=${perPage}`,
+    `${
+      config.backendUrl
+    }/menu_items/admin?filter=${filter?.toLocaleLowerCase()}&page=${page}&perPage=${perPage}`,
     {
       headers: {
         authorization: `Bearer ${accessToken?.value}`,

@@ -1,14 +1,21 @@
+import { config } from "@/app/config";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign } from "lucide-react";
 import { cookies } from "next/headers";
 
-export async function Revenue({ from, to }: { from: string; to: string }) {
-  let revenue: number | undefined;
+export async function OrderItemCount({
+  from,
+  to,
+}: {
+  from: string;
+  to: string;
+}) {
+  let totalItemCount: number | undefined;
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken");
 
   const res = await fetch(
-    `http://localhost:5005/analytics/revenue?from=${from}&to=${to}`,
+    `${config.backendUrl}/analytics/order_item_count?from=${from}&to=${to}`,
     {
       headers: {
         authorization: `Bearer ${accessToken?.value}`,
@@ -17,26 +24,25 @@ export async function Revenue({ from, to }: { from: string; to: string }) {
   );
   if (res.ok) {
     const data = (await res.json()) as number;
-    console.log("🚀 ~ Revenue ~ data:", data);
-    revenue = data;
+    console.log("🚀 ~ Order item count ~ data:", data);
+    totalItemCount = data;
   }
 
   return (
     <Card x-chunk="A card showing the total revenue in USD and the percentage difference from last month.">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">Omsætning</CardTitle>
+        <CardTitle className="text-sm font-medium">Ordre genstande</CardTitle>
         <DollarSign className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">
-          {new Intl.NumberFormat("da-DK", {
-            style: "currency",
-            currency: "DKK",
-            maximumFractionDigits: 0,
-          }).format((revenue ?? 0) / 100)}
+          {new Intl.NumberFormat("da", {
+            notation: "compact",
+            maximumFractionDigits: 2,
+          }).format(totalItemCount ?? 0)}
         </div>
         <p className="text-xs text-muted-foreground">
-          Salg af mad og drikkelse.
+          Antal af retter og drikkevare solgt i perioden.
         </p>
       </CardContent>
     </Card>

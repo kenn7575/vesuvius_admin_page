@@ -1,6 +1,7 @@
 import { MenuItemType } from "../types";
 import { cookies } from "next/headers";
 import { CreateMenuItemForm } from "./createMenuItemForm";
+import { config } from "@/app/config";
 
 export default async function Dashboard({
   params,
@@ -12,7 +13,7 @@ export default async function Dashboard({
   const id = (await params).id;
   const accessToken = cookieStore.get("accessToken");
 
-  const res = await fetch(`http://localhost:5005/menu_item_types`);
+  const res = await fetch(`${config.backendUrl}/menu_item_types`);
   if (res.ok) {
     const data = (await res.json()) as MenuItemType[];
 

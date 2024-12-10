@@ -40,6 +40,7 @@ import { useForm } from "react-hook-form";
 
 import { useRouter } from "next/navigation";
 import { menuItemSchema } from "@/lib/zodSchemas";
+import { config } from "@/app/config";
 
 export function CreateMenuItemForm({
   initialMenuItemTypeList,
@@ -66,7 +67,7 @@ export function CreateMenuItemForm({
 
   async function onSubmit(values: z.infer<typeof menuItemSchema>) {
     console.log(values);
-    const res = await fetch(`http://localhost:5005/menu_items`, {
+    const res = await fetch(`${config.backendUrl}/menu_items`, {
       headers: {
         authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -77,7 +78,7 @@ export function CreateMenuItemForm({
     console.log("🚀 ~ onSubmit ~ res", res);
     if (res.ok) {
       const { id } = await res.json();
-      router.push(`/menu-items/${id}?created=true`);
+      router.push(`/menu-genstande/${id}?created=true`);
     }
   }
 
@@ -89,7 +90,7 @@ export function CreateMenuItemForm({
       >
         <div className="flex items-center gap-4">
           <Button variant="outline" size="icon" className="h-7 w-7" asChild>
-            <Link href="/menu-items">
+            <Link href="/menu-genstande">
               <ChevronLeft className="h-4 w-4" />
               <span className="sr-only">Back</span>
             </Link>
@@ -100,7 +101,7 @@ export function CreateMenuItemForm({
 
           <div className="hidden items-center gap-2 md:ml-auto md:flex">
             <Button variant="outline" size="sm" asChild>
-              <Link href={`/menu-items`}>Annuller</Link>
+              <Link href={`/menu-genstande`}>Annuller</Link>
             </Button>
             <Button size="sm" type="submit">
               {pending && <LoaderCircle className="animate-spin" />}
