@@ -128,13 +128,12 @@ export async function MenuItemTable({
       <CardFooter className="flex flex-row items-center">
         {metaData && (
           <div className="text-xs text-muted-foreground min-w-24">
-            Showing{" "}
+            Viser{" "}
             <strong>
               {metaData.page * metaData.perPage - metaData.perPage + 1} -{" "}
               {Math.min(metaData.page * metaData.perPage, metaData.total)}
             </strong>{" "}
-            of <strong>{metaData.total}</strong>
-            products
+            ud af <strong>{metaData.total}</strong> emner
           </div>
         )}
         {metaData && <TablePagination metaData={metaData} />}
