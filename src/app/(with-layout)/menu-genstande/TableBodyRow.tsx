@@ -118,9 +118,6 @@ export function TableBodyRow({
                 Edit
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              {item.is_active ? "Deaktiver" : "Aktiver"}
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </TableCell>
