@@ -1,37 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Cafe Vesuvius Admin Page
 
-First, run the development server:
+This is the CMS and admin page for the Cafe Vesuvius project. It is a server side rendered react app that uses next.js and tailwindcss. It is a highly optimized and secure application, that is designed to be used by the cafe owner to manage the menu and view analytics. The app is designed to be used on a desktop or tablet, however it is also responsive and optimized for mobile devices.
+
+
+## Authors
+
+- [@kenn7575](https://www.github.com/kenn7575)
+
+
+## Features
+
+- Light/dark theme 🌗
+- Server side rendered dynamic data. 🔥
+- Highly optimized performance ⚡️
+- modern design and dynamic charts. 📈
+- CMS system with form validation and live feedback. 👨‍💻
+- Secure authenticatio middleware that automaticlly renews access tokens. 🔐
+
+
+## To Run Locally
+
+Clone the project
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  git clone https://github.com/kenn7575/vesuvius_admin_page
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Install dependencies
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+  npm install --force
+```
 
-## Learn More
+Build the project in dev mode
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+  npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Build and run the project in prod mode
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+  npm run build && npm run start
+```
 
-## Deploy on Vercel
+## Environment Variables
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To run this project, you will need to add the following environment variables to your .env file
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# vesuvius_admin_page
+`NEXT_PUBLIC_BACKEND_URL` for the backend backend endpoints
+
+`JWT_SECRET` for validating the token expiration and attempting to renew expired tokens.
+
