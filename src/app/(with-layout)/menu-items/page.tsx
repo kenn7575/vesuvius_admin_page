@@ -1,37 +1,13 @@
-import { Tablist } from "./Tablist";
 export const dynamic = "force-dynamic";
 import Link from "next/link";
-import Image from "next/image";
-import { File, ListFilter, MoreHorizontal, PlusCircle } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+
+import { File, PlusCircle } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MenuItemTable } from "./table";
+
+import { Tabs, TabsContent } from "@/components/ui/tabs";
+import { Tablist } from "../menu-genstande/Tablist";
+import { MenuItemTable } from "../menu-genstande/table";
 
 export default async function Dashboard(props: {
   searchParams?: Promise<{
